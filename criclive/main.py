@@ -20,7 +20,7 @@ def get_team_scores(team_soup):
         t[1] = t[1].contents
     return [[t[0].strip(), t[1]] for t in team]
 
-t1, t2 = get_team_divs(get_bsoup_object(open_url(url)))
-
-for i in range(len(t1)):
-    print("%s. %s %s VS %s %s" %(i+1, t1[i][0], t1[i][1], t2[i][0], t2[i][1]))
+def main():
+    t1, t2 = get_team_divs(get_bsoup_object(open_url(url)))
+    for i in range(len(t1)):
+        print("%s. %s %s VS %s %s" %(i+1, t1[i][0], t1[i][1], t2[i][0], t2[i][1]))

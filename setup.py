@@ -14,12 +14,12 @@ setup(
     packages=find_packages(),
     include_package_data = True,
     install_requires=[
-        "beautifulsoup4 >= 4.4.1",
-        "requests==2.7.0"
+        "beautifulsoup4",
+        "requests"
     ],
     entry_points={
         'console_scripts': [
-            'criclive = criclive.main'
+            'criclive = criclive.main:main'
         ],
     }
 )
