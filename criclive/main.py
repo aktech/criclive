@@ -1,26 +1,62 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "http://www.espncricinfo.com/ci/engine/match/index.html?view=live"
+from tabulate import tabulate
 
-def open_url(url):
-    return requests.get(url).text  # returns html
+SOURCE_URL = "https://www.espncricinfo.com/scores/"
 
-def get_bsoup_object(html):
-    return BeautifulSoup(html, "lxml")  # returns soup (BeautifulSoup's object)
 
-def get_team_divs(soup):
-    teams1 = soup.find_all('div', attrs = {'class': 'innings-info-1'})
-    teams2 = soup.find_all('div', attrs = {'class': 'innings-info-2'})
-    return get_team_scores(teams1), get_team_scores(teams2)
+def print_scores(scores):
+    table = [
+        [
+            f"{score['first_team']['name']} {score['first_team']['score']}",
+            f"{score['second_team']['name']} {score['second_team']['score']}"
+        ]
+        for score in scores
+    ]
+    table_len = len(table)
+    print(tabulate(
+        table,
+        showindex=range(1, table_len + 1),
+        tablefmt='fancy_grid')
+    )
 
-def get_team_scores(team_soup):
-    team = list(map(lambda x: x.contents, team_soup))
-    for t in team:
-        t[1] = t[1].contents
-    return [[t[0].strip(), t[1]] for t in team]
+
+def get_scores():
+    html = requests.get(SOURCE_URL).text
+    soup = BeautifulSoup(html, "lxml")
+    competitors = soup.find_all('ul', attrs={'class': 'cscore_competitors'})
+
+    scores = []
+
+    for each_competitor in competitors:
+        team_scores = list(map(_extract_score, each_competitor.find_all('div', {'class': 'cscore_score'})))
+        team_names = list(map(lambda x: x.contents[0], each_competitor.find_all('span', {'class': 'cscore_name--long'})))
+
+        scores.append(
+            {
+                'first_team': {
+                    'name': team_names[0],
+                    'score': team_scores[0]
+                },
+                'second_team': {
+                    'name': team_names[1],
+                    'score': team_scores[1]
+                },
+            }
+        )
+    return scores
+
+
+def _extract_score(score_soup):
+    score_string = score_soup.contents
+    if len(score_string) == 2:
+        score, overs = score_string
+        overs_content = overs.contents
+        score_string = [f'{score} {overs_content[0]}']
+    return score_string
+
 
 def main():
-    t1, t2 = get_team_divs(get_bsoup_object(open_url(url)))
-    for i in range(len(t1)):
-        print("%s. %s %s VS %s %s" %(i+1, t1[i][0], t1[i][1], t2[i][0], t2[i][1]))
+    scores = get_scores()
+    print_scores(scores)
