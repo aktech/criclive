@@ -2,12 +2,13 @@
 
 from setuptools import setup, find_packages
 
-with open("README.md") as fh:
-    long_description = fh.read()
+long_description = """
+Cricket Live: Get Live scores of all cricket matches in your Command Line.
+"""
 
 setup(
     name='criclive',
-    version='0.1.1',
+    version='0.2',
     description='Live Cricket Scores in Command Line.',
     author='Amit Kumar',
     license='MIT',

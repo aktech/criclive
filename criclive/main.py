@@ -6,7 +6,7 @@ from tabulate import tabulate
 SOURCE_URL = "https://www.espncricinfo.com/scores/"
 
 
-def print_scores(scores):
+def _print_scores(scores):
     table = [
         [
             f"{score['first_team']['name']} {score['first_team']['score']}",
@@ -59,5 +59,5 @@ def _extract_score(score_soup):
 
 def main():
     scores = get_scores()
-    print_scores(scores)
+    _print_scores(scores)
 
