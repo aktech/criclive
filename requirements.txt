@@ -1,4 +1,4 @@
-beautifulsoup4
+beautifulsoup4==4.9.0
 requests
-lxml
+lxml==4.5.0
 tabulate==0.8.7

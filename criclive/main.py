@@ -60,3 +60,4 @@ def _extract_score(score_soup):
 def main():
     scores = get_scores()
     print_scores(scores)
+

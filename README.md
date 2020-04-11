@@ -7,8 +7,6 @@ Cricket Live: Get Live scores of all cricket matches in your Command Line.
 [![PyPI version](https://img.shields.io/pypi/v/criclive.svg)](https://pypi.python.org/pypi/criclive)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
-![GIF Tutorial](criclive.gif)
-
 # Install
 
 ## Using pip
@@ -35,16 +33,41 @@ criclive
 
 ```
 amit@aktech$ criclive
-1. Kings XI Punjab ['138/8 (20 ov)'] VS Kolkata Knight Riders []
-2. Nottinghamshire ['242 & 133/5 (68.5 ov)'] VS Lancashire ['332']
-3. Middlesex ['452 & 20/2 (7 ov)'] VS Warwickshire ['468']
-4. Yorkshire ['593/9d'] VS Hampshire ['372/7 (130.5 ov)']
-5. Glamorgan ['348 & 74/3 (24.4 ov)'] VS Leicestershire ['427']
-6. Derbyshire ['444'] VS Gloucestershire ['467/6 (110.5 ov)']
-7. Sussex ['360 & 199/4 (43.1 ov)'] VS Essex ['320']
-8. Balochistan ['215 (46.2/50 ov)'] VS Punjab (Pakistan) ['56/2 (18.1/50 ov)']
-9. Somerset ['370/6d & 480/9d'] VS Cardiff MCCU ['118 & 134/8 (49.2 ov, target: 733)']
-10. Krira U18 ['295'] VS Dhaka Metro Under-18s ['2/0 (1 ov)']
+╒════╤════════════════════════════════════════╤═══════════════════════════════════════════════╕
+│  1 │ England ['302/3']                      │ Sri Lanka ['303/9  (49.4/50 ov, target 303)'] │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  2 │ Pakistan []                            │ Bangladesh []                                 │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  3 │ Zimbabwe []                            │ Ireland []                                    │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  4 │ Rajasthan Royals []                    │ Kolkata Knight Riders []                      │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  5 │ Delhi Capitals []                      │ Royal Challengers Bangalore []                │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  6 │ Chennai Super Kings []                 │ Kings XI Punjab []                            │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  7 │ Cambridge MCCU []                      │ Nottinghamshire []                            │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  8 │ Lancashire []                          │ Durham MCCU []                                │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│  9 │ Leeds/Bradford MCCU []                 │ Warwickshire []                               │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 10 │ Loughborough MCCU []                   │ Worcestershire []                             │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 11 │ Somerset []                            │ Cardiff MCCU []                               │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 12 │ Sussex []                              │ Oxford MCCU []                                │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 13 │ Kurunegala Youth Cricket Club []       │ Bloomfield Cricket and Athletic Club []       │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 14 │ Police Sports Club []                  │ Sebastianites Cricket and Athletic Club []    │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 15 │ Sri Lanka Air Force Sports Club []     │ Kalutara Town Club []                         │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 16 │ Sri Lanka Navy Sports Club []          │ Sri Lanka Ports Authority Cricket Club []     │
+├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
+│ 17 │ Diasqua Little Sai Wan Cricket Club [] │ United Services Recreation Club []            │
+╘════╧════════════════════════════════════════╧═══════════════════════════════════════════════╛
 ```
 
 # Contributing
