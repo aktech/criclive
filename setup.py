@@ -21,7 +21,7 @@ setup(
     install_requires=[
         "beautifulsoup4==4.9.0",
         "requests",
-        "lxml==4.5.0",
+        "lxml==4.9.1",
         "tabulate==0.8.7",
     ],
     entry_points={
