@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-from tabulate import tabulate
-
 SOURCE_URL = "https://www.espncricinfo.com/scores/"
 
 
@@ -15,11 +13,7 @@ def _print_scores(scores):
         for score in scores
     ]
     table_len = len(table)
-    print(tabulate(
-        table,
-        showindex=range(1, table_len + 1),
-        tablefmt='fancy_grid')
-    )
+    print(table)
 
 
 def get_scores():
