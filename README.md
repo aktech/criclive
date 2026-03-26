@@ -29,22 +29,30 @@ pixi install
 criclive
 ```
 
+<img src="assets/tui.svg" alt="criclive TUI">
+
+### Options
+
+| Flag | Description |
+|------|-------------|
+| `--json` | Output scores as JSON |
+| `--interval N` | Auto-refresh interval in seconds (default: 5) |
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `/` | Filter matches by team, series, or format |
+| `Esc` | Clear filter |
+| `r` | Refresh scores |
+| `q` | Quit |
+
+Click on a match to expand detailed view with venue, full team names, and status.
+
+### Plain text output
+
 ```
-╒════╤═══════════════════════╤════╤══════════════════════╤══════════╤══════════╕
-│    │ Team 1                │    │ Team 2               │ Format   │ Status   │
-╞════╪═══════════════════════╪════╪══════════════════════╪══════════╪══════════╡
-│  1 │ LHQ                   │ vs │ HYDK                 │ T20      │ Preview  │
-├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
-│  2 │ RSA  187/4 (19.6 ov)  │ vs │ NZ  154/8 (19.6 ov)  │ T20      │ RSA won  │
-├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
-│  3 │ INDT                  │ vs │ KNSO                 │ T20      │ Preview  │
-├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
-│  4 │ SAUS  55/3 (27.6 ov)  │ vs │ VIC                  │ TEST     │ Break    │
-├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
-│  5 │ WAR  204/10 (49.3 ov) │ vs │ TIT  209/6 (43.1 ov) │ ODI      │ TIT won  │
-├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
-│  6 │ IND  255/5 (19.6 ov)  │ vs │ NZ  159/10 (18.6 ov) │ T20      │ IND won  │
-╘════╧═══════════════════════╧════╧══════════════════════╧══════════╧══════════╛
+criclive-plain
 ```
 
 ## Development
