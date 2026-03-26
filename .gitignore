@@ -93,4 +93,3 @@ ENV/
 
 # Pixi
 .pixi/
-pixi.lock
