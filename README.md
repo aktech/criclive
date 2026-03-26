@@ -1,75 +1,66 @@
-# Cricket Live : `criclive`
+# criclive
 
-
-Cricket Live: Get Live scores of all cricket matches in your Command Line.
-
+**Live cricket scores in your terminal.**
 
 [![PyPI version](https://img.shields.io/pypi/v/criclive.svg)](https://pypi.python.org/pypi/criclive)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![Test](https://github.com/aktech/criclive/actions/workflows/test.yml/badge.svg)](https://github.com/aktech/criclive/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/pypi/pyversions/criclive.svg)](https://pypi.python.org/pypi/criclive)
 
-# Install
+## Install
 
-## Using pip
+### Using pip
 
 ```
 pip install criclive
 ```
 
-## Using Git
+### Using pixi
 
 ```
 git clone https://github.com/aktech/criclive.git
 cd criclive
-python setup.py install
+pixi install
 ```
 
-# Usage
+## Usage
 
-Simply run the following command:
 ```
 criclive
 ```
-* Sample scores:
 
 ```
-amit@aktech$ criclive
-╒════╤════════════════════════════════════════╤═══════════════════════════════════════════════╕
-│  1 │ England ['302/3']                      │ Sri Lanka ['303/9  (49.4/50 ov, target 303)'] │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  2 │ Pakistan []                            │ Bangladesh []                                 │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  3 │ Zimbabwe []                            │ Ireland []                                    │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  4 │ Rajasthan Royals []                    │ Kolkata Knight Riders []                      │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  5 │ Delhi Capitals []                      │ Royal Challengers Bangalore []                │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  6 │ Chennai Super Kings []                 │ Kings XI Punjab []                            │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  7 │ Cambridge MCCU []                      │ Nottinghamshire []                            │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  8 │ Lancashire []                          │ Durham MCCU []                                │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│  9 │ Leeds/Bradford MCCU []                 │ Warwickshire []                               │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 10 │ Loughborough MCCU []                   │ Worcestershire []                             │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 11 │ Somerset []                            │ Cardiff MCCU []                               │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 12 │ Sussex []                              │ Oxford MCCU []                                │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 13 │ Kurunegala Youth Cricket Club []       │ Bloomfield Cricket and Athletic Club []       │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 14 │ Police Sports Club []                  │ Sebastianites Cricket and Athletic Club []    │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 15 │ Sri Lanka Air Force Sports Club []     │ Kalutara Town Club []                         │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 16 │ Sri Lanka Navy Sports Club []          │ Sri Lanka Ports Authority Cricket Club []     │
-├────┼────────────────────────────────────────┼───────────────────────────────────────────────┤
-│ 17 │ Diasqua Little Sai Wan Cricket Club [] │ United Services Recreation Club []            │
-╘════╧════════════════════════════════════════╧═══════════════════════════════════════════════╛
+╒════╤═══════════════════════╤════╤══════════════════════╤══════════╤══════════╕
+│    │ Team 1                │    │ Team 2               │ Format   │ Status   │
+╞════╪═══════════════════════╪════╪══════════════════════╪══════════╪══════════╡
+│  1 │ LHQ                   │ vs │ HYDK                 │ T20      │ Preview  │
+├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
+│  2 │ RSA  187/4 (19.6 ov)  │ vs │ NZ  154/8 (19.6 ov)  │ T20      │ RSA won  │
+├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
+│  3 │ INDT                  │ vs │ KNSO                 │ T20      │ Preview  │
+├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
+│  4 │ SAUS  55/3 (27.6 ov)  │ vs │ VIC                  │ TEST     │ Break    │
+├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
+│  5 │ WAR  204/10 (49.3 ov) │ vs │ TIT  209/6 (43.1 ov) │ ODI      │ TIT won  │
+├────┼───────────────────────┼────┼──────────────────────┼──────────┼──────────┤
+│  6 │ IND  255/5 (19.6 ov)  │ vs │ NZ  159/10 (18.6 ov) │ T20      │ IND won  │
+╘════╧═══════════════════════╧════╧══════════════════════╧══════════╧══════════╛
 ```
 
-# Contributing
+## Development
 
-Use github's Pull request/issues feature for all contributions.
+```bash
+git clone https://github.com/aktech/criclive.git
+cd criclive
+pixi install
+pixi run start    # run criclive
+pixi run test     # run tests
+```
+
+## Contributing
+
+Use GitHub's Pull request/issues feature for all contributions.
+
+## License
+
+MIT
