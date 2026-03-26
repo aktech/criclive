@@ -1,0 +1,39 @@
+[project]
+name = "criclive"
+version = "0.3"
+description = "Live Cricket Scores in Command Line."
+authors = [{ name = "Amit Kumar", email = "dtu.amit@gmail.com" }]
+license = { text = "MIT" }
+keywords = ["Cricket", "score", "scores", "cli", "live"]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.12",
+    "requests>=2.31",
+    "tabulate>=0.9",
+]
+
+[project.urls]
+Homepage = "https://github.com/aktech/criclive"
+
+[project.scripts]
+criclive = "criclive.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "linux-aarch64", "osx-arm64", "osx-64"]
+
+[tool.pixi.pypi-dependencies]
+criclive = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+start = "criclive"
+test = "python -m pytest tests.py"
+
+[tool.pixi.dependencies]
+python = ">=3.10"
+pytest = ">=8"
