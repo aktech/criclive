@@ -319,8 +319,8 @@ packages:
   timestamp: 1733218222191
 - pypi: ./
   name: criclive
-  version: '0.3'
-  sha256: 285a54608b1e56fd25b64b86f4731997a87f658d38bf78aa09438309e96f9474
+  version: '0.4'
+  sha256: 004ca03358b6d402deefa9004728b7066f27d746f7d43d38778f96e3025cb14a
   requires_dist:
   - beautifulsoup4>=4.12
   - requests>=2.31
