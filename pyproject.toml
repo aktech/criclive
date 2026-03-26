@@ -11,13 +11,15 @@ dependencies = [
     "beautifulsoup4>=4.12",
     "requests>=2.31",
     "tabulate>=0.9",
+    "textual>=3.0",
 ]
 
 [project.urls]
 Homepage = "https://github.com/aktech/criclive"
 
 [project.scripts]
-criclive = "criclive.main:main"
+criclive = "criclive.tui:main"
+criclive-plain = "criclive.main:main"
 
 [build-system]
 requires = ["hatchling"]

@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+from datetime import datetime, timezone
 
 import requests
 from bs4 import BeautifulSoup
@@ -95,16 +96,33 @@ def _parse_match(data):
 
     status = info.get("stateTitle", "") or info.get("state", "")
 
+    start_ts = info.get("startDate")
+    date_str = ""
+    if start_ts:
+        dt = datetime.fromtimestamp(start_ts / 1000, tz=timezone.utc)
+        date_str = dt.strftime("%b %d, %H:%M GMT")
+
+    venue = info.get("venueInfo", {})
+    venue_str = ""
+    if venue:
+        parts = [venue.get("ground", ""), venue.get("city", "")]
+        venue_str = ", ".join(p for p in parts if p)
+
     return {
         "match_id": info.get("matchId"),
         "title": f"{info.get('seriesName', '')} - {info.get('matchDesc', '')}",
         "format": info.get("matchFormat", ""),
+        "date": date_str,
+        "venue": venue_str,
+        "status_detail": info.get("status", ""),
         "first_team": {
             "name": team1_info.get("teamSName", team1_info.get("teamName", "")),
+            "full_name": team1_info.get("teamName", ""),
             "score": team1_score,
         },
         "second_team": {
             "name": team2_info.get("teamSName", team2_info.get("teamName", "")),
+            "full_name": team2_info.get("teamName", ""),
             "score": team2_score,
         },
         "status": status,
