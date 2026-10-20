@@ -2,7 +2,7 @@ import json
 import unittest
 from unittest.mock import patch, MagicMock
 
-from criclive.main import get_scores, _format_score, _parse_match
+from criclive.main import get_scores, _format_score, _format_match_date, _parse_match
 
 
 SAMPLE_MATCH = {
@@ -71,6 +71,33 @@ class TestParseMatch(unittest.TestCase):
     def test_parse_match_no_teams(self):
         data = {"match": {"matchInfo": {}, "matchScore": {}}}
         self.assertIsNone(_parse_match(data))
+
+    def test_parse_match_ignores_malformed_start_date(self):
+        data = {
+            "match": {
+                "matchInfo": {
+                    "matchId": 12345,
+                    "team1": {"teamName": "India", "teamSName": "IND"},
+                    "team2": {"teamName": "Australia", "teamSName": "AUS"},
+                    "startDate": "not-a-timestamp",
+                },
+                "matchScore": {},
+            }
+        }
+        result = _parse_match(data)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["date"], "")
+
+
+class TestFormatMatchDate(unittest.TestCase):
+    def test_formats_numeric_timestamp(self):
+        self.assertEqual(_format_match_date(0), "Jan 01, 00:00 GMT")
+
+    def test_formats_numeric_string_timestamp(self):
+        self.assertEqual(_format_match_date("0"), "Jan 01, 00:00 GMT")
+
+    def test_invalid_timestamp_returns_empty(self):
+        self.assertEqual(_format_match_date("invalid"), "")
 
 
 class TestGetScores(unittest.TestCase):

@@ -96,11 +96,7 @@ def _parse_match(data):
 
     status = info.get("stateTitle", "") or info.get("state", "")
 
-    start_ts = info.get("startDate")
-    date_str = ""
-    if start_ts:
-        dt = datetime.fromtimestamp(start_ts / 1000, tz=timezone.utc)
-        date_str = dt.strftime("%b %d, %H:%M GMT")
+    date_str = _format_match_date(info.get("startDate"))
 
     venue = info.get("venueInfo", {})
     venue_str = ""
@@ -127,6 +123,17 @@ def _parse_match(data):
         },
         "status": status,
     }
+
+
+def _format_match_date(start_ts):
+    """Format a Cricbuzz timestamp without dropping the whole match on bad data."""
+    if start_ts in (None, ""):
+        return ""
+    try:
+        dt = datetime.fromtimestamp(float(start_ts) / 1000, tz=timezone.utc)
+    except (OverflowError, TypeError, ValueError):
+        return ""
+    return dt.strftime("%b %d, %H:%M GMT")
 
 
 def _format_score(team_score):
