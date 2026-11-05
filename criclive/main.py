@@ -45,7 +45,11 @@ def _parse_matches_from_script(text):
         start = m.start() - 1  # include the opening {
         match_data = _extract_json_object(unescaped, start)
         if match_data:
-            parsed = _parse_match(match_data)
+            try:
+                parsed = _parse_match(match_data)
+            except (AttributeError, TypeError, ValueError):
+                # Skip one malformed match instead of losing every match
+                continue
             if parsed:
                 matches.append(parsed)
 
@@ -126,12 +130,15 @@ def _parse_match(data):
 
 
 def _format_match_date(start_ts):
-    """Format a Cricbuzz timestamp without dropping the whole match on bad data."""
-    if start_ts in (None, ""):
+    """Format a Cricbuzz timestamp, or return "" when it is missing or invalid."""
+    if isinstance(start_ts, bool):
         return ""
     try:
-        dt = datetime.fromtimestamp(float(start_ts) / 1000, tz=timezone.utc)
-    except (OverflowError, TypeError, ValueError):
+        start_ms = float(start_ts)
+        if not start_ms:
+            return ""
+        dt = datetime.fromtimestamp(start_ms / 1000, tz=timezone.utc)
+    except (OverflowError, OSError, TypeError, ValueError):
         return ""
     return dt.strftime("%b %d, %H:%M GMT")
 

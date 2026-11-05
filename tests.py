@@ -1,3 +1,4 @@
+import copy
 import json
 import unittest
 from unittest.mock import patch, MagicMock
@@ -91,35 +92,63 @@ class TestParseMatch(unittest.TestCase):
 
 class TestFormatMatchDate(unittest.TestCase):
     def test_formats_numeric_timestamp(self):
-        self.assertEqual(_format_match_date(0), "Jan 01, 00:00 GMT")
+        self.assertEqual(_format_match_date(1700000000000), "Nov 14, 22:13 GMT")
 
     def test_formats_numeric_string_timestamp(self):
-        self.assertEqual(_format_match_date("0"), "Jan 01, 00:00 GMT")
+        self.assertEqual(_format_match_date("1700000000000"), "Nov 14, 22:13 GMT")
+
+    def test_zero_timestamp_returns_empty(self):
+        self.assertEqual(_format_match_date(0), "")
+        self.assertEqual(_format_match_date("0"), "")
+
+    def test_out_of_range_timestamp_returns_empty(self):
+        self.assertEqual(_format_match_date(1e20), "")
+
+    def test_boolean_timestamp_returns_empty(self):
+        self.assertEqual(_format_match_date(True), "")
 
     def test_invalid_timestamp_returns_empty(self):
         self.assertEqual(_format_match_date("invalid"), "")
 
 
+def _live_scores_page(*matches):
+    """Build a minimal HTML page with embedded match data (compact JSON, no spaces)."""
+    matches_json = ",".join(
+        json.dumps(m, separators=(",", ":")).replace('"', '\\"') for m in matches
+    )
+    return f"""
+    <html><head></head><body>
+    <script>
+    self.__next_f.push([1,"matchesList\\":{{\\"matches\\":[{matches_json}]}}"])
+    </script>
+    </body></html>
+    """
+
+
 class TestGetScores(unittest.TestCase):
     @patch("criclive.main.requests.get")
     def test_get_scores_parses_embedded_json(self, mock_get):
-        # Build a minimal HTML page with embedded match data (compact JSON, no spaces)
-        match_json = json.dumps(SAMPLE_MATCH, separators=(",", ":")).replace('"', '\\"')
-        html = f"""
-        <html><head></head><body>
-        <script>
-        self.__next_f.push([1,"matchesList\\":{{\\"matches\\":[{match_json}]}}"])
-        </script>
-        </body></html>
-        """
         mock_response = MagicMock()
-        mock_response.text = html
+        mock_response.text = _live_scores_page(SAMPLE_MATCH)
         mock_response.raise_for_status = MagicMock()
         mock_get.return_value = mock_response
 
         scores = get_scores()
         self.assertEqual(len(scores), 1)
         self.assertEqual(scores[0]["first_team"]["name"], "IND")
+
+    @patch("criclive.main.requests.get")
+    def test_get_scores_skips_malformed_match(self, mock_get):
+        bad_match = copy.deepcopy(SAMPLE_MATCH)
+        bad_match["match"]["matchInfo"]["matchId"] = 999
+        bad_match["match"]["matchScore"]["team1Score"] = None
+        mock_response = MagicMock()
+        mock_response.text = _live_scores_page(bad_match, SAMPLE_MATCH)
+        mock_response.raise_for_status = MagicMock()
+        mock_get.return_value = mock_response
+
+        scores = get_scores()
+        self.assertEqual([s["match_id"] for s in scores], [12345])
 
     @patch("criclive.main.requests.get")
     def test_get_scores_empty_page(self, mock_get):
