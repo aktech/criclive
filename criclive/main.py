@@ -1,3 +1,4 @@
+import argparse
 import json
 import re
 import sys
@@ -6,6 +7,8 @@ from datetime import datetime, timezone
 import requests
 from bs4 import BeautifulSoup
 from tabulate import tabulate
+
+from criclive import __version__
 
 LIVE_SCORES_URL = "https://www.cricbuzz.com/cricket-match/live-scores"
 HEADERS = {
@@ -179,6 +182,10 @@ def _print_scores(scores):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Live Cricket Scores")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.parse_args()
+
     try:
         scores = get_scores()
         _print_scores(scores)

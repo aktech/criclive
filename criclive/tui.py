@@ -5,6 +5,7 @@ from textual.reactive import var
 from textual.widgets import Static
 from textual.widget import Widget
 
+from criclive import __version__
 from criclive.main import get_scores
 
 DEFAULT_REFRESH_INTERVAL = 5
@@ -391,6 +392,7 @@ def main():
     import sys
 
     parser = argparse.ArgumentParser(description="Live Cricket Scores")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("--json", action="store_true", help="Output scores as JSON")
     parser.add_argument(
         "--interval",
