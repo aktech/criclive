@@ -69,11 +69,16 @@ def _parse_matches_from_script(text):
 
 
 def _extract_json_object(text, start):
-    """Extract a balanced JSON object starting at position `start`."""
+    """Extract a balanced JSON object starting at position `start`.
+
+    The scan runs to the end of the page: match blocks grow with the
+    embedded data (long status text, extra teams/venues), so stopping
+    after a fixed window silently drops real live matches.
+    """
     if text[start] != "{":
         return None
     depth = 0
-    for i in range(start, min(start + 5000, len(text))):
+    for i in range(start, len(text)):
         if text[i] == "{":
             depth += 1
         elif text[i] == "}":
