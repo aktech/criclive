@@ -3,7 +3,7 @@ import json
 import unittest
 from unittest.mock import patch, MagicMock
 
-from criclive.main import get_scores, _format_score, _format_match_date, _parse_match
+from criclive.main import get_scores, _extract_json_object, _format_score, _format_match_date, _parse_match
 
 
 SAMPLE_MATCH = {
@@ -159,6 +159,30 @@ class TestGetScores(unittest.TestCase):
 
         scores = get_scores()
         self.assertEqual(scores, [])
+
+
+class TestExtractJsonObject(unittest.TestCase):
+    def test_extracts_match_block_larger_than_old_window(self):
+        big_match = copy.deepcopy(SAMPLE_MATCH)
+        big_match["match"]["matchInfo"]["status"] = "X" * 6000
+        blob = json.dumps(big_match, separators=(",", ":"))
+        self.assertGreater(len(blob), 5000)
+
+        obj = _extract_json_object("X" + blob, 1)
+        self.assertIsNotNone(obj)
+        self.assertEqual(obj["match"]["matchInfo"]["matchId"], 12345)
+
+    @patch("criclive.main.requests.get")
+    def test_get_scores_keeps_large_match_block(self, mock_get):
+        big_match = copy.deepcopy(SAMPLE_MATCH)
+        big_match["match"]["matchInfo"]["status"] = "Y" * 6000
+        mock_response = MagicMock()
+        mock_response.text = _live_scores_page(big_match)
+        mock_response.raise_for_status = MagicMock()
+        mock_get.return_value = mock_response
+
+        scores = get_scores()
+        self.assertEqual([s["match_id"] for s in scores], [12345])
 
 
 if __name__ == "__main__":
